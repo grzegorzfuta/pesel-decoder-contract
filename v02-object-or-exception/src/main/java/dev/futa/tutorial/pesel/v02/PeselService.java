@@ -3,6 +3,7 @@ package dev.futa.tutorial.pesel.v02;
 import com.google.common.collect.ImmutableMap;
 import dev.futa.tutorial.pesel.Gender;
 
+import java.io.File;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.Map;
@@ -29,13 +30,16 @@ public class PeselService {
           80, 1800);
 
   /**
-   * Method decodes date od birth and gender from PESEL number. Will return PeselDecodingException
+   * Method decodes date of birth and gender from PESEL number. Will return <code>PeselDecodingException</code>
+   * in case of invalid PESEL number.
    *
    * @param pesel PESEL number to decode data from
-   * @return object contains decoded data and PESEL itself.
-   * @throws PeselDecodingException asdasd
+   * @return object contains decoded data and PESEL itself
+   * @throws PeselDecodingException if given PESEL can not be decoded
    */
   public PeselInfo decodePesel(final String pesel) {
+
+    new File("");
 
     if (isNull(pesel)) {
       throw new IllegalArgumentException("PESEL number can not be null");

@@ -28,11 +28,11 @@ public class PeselService {
           80, 1800);
 
   /**
-   * Method decodes date od birth and gender from PESEL number
+   * Method decodes date of birth and gender from PESEL number.
    *
    * @param pesel PESEL number to decode data from
-   * @return object contains decoded data and PESEL itself. Will return null if PESEL do not meet
-   *     validation rules or coded date is not valid date.
+   * @return object that contains decoded birth date and PESEL itself. Will return <code>null</code> if PESEL
+   *     do not meet validation rules or coded date is not valid date.
    */
   public PeselInfo decodePesel(final String pesel) {
 
