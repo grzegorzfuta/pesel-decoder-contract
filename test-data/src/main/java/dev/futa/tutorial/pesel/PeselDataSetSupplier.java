@@ -39,7 +39,7 @@ public class PeselDataSetSupplier {
   }
 
   public Set<String> getInvalidChecksumPeselSet() {
-    return Set.of("06231202341", "08271402340");
+    return Set.of("06231202347", "08271402340");
   }
 
   public Set<String> getInvalidEncodedDatePeselSet() {

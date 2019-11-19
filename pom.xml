@@ -11,6 +11,7 @@
     <modules>
         <module>test-data</module>
         <module>v01-object-or-null</module>
+        <module>v02-object-or-exception</module>
     </modules>
 
     <properties>
@@ -19,6 +20,7 @@
         <surfire.plugin.version>3.0.0-M3</surfire.plugin.version>
         <mockito.version>1.10.19</mockito.version>
         <guava.version>28.1-jre</guava.version>
+        <javadoc.plugin.version>3.1.1</javadoc.plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -52,8 +54,30 @@
                     <target>11</target>
                 </configuration>
             </plugin>
-
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.1.1</version>
+                <configuration>
+                    <show>private</show>
+                    <nohelp>true</nohelp>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
+
+    <!--<reporting>-->
+        <!--<plugins>-->
+            <!--<plugin>-->
+                <!--<groupId>org.apache.maven.plugins</groupId>-->
+                <!--<artifactId>maven-javadoc-plugin</artifactId>-->
+                <!--<version>3.1.1</version>-->
+                <!--<configuration>-->
+                    <!--<stylesheetfile>${basedir}/src/main/javadoc/stylesheet.css</stylesheetfile>-->
+                    <!--<show>public</show>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
+        <!--</plugins>-->
+    <!--</reporting>-->
 
 </project>

@@ -1,4 +1,4 @@
-# Solution 1
+# Approach #1
 
 The simplest possible solution of decoding data and (in general)
 defining the method contract. Those solution works fine if everything is fine.
