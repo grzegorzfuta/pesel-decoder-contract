@@ -12,6 +12,7 @@
         <module>test-data</module>
         <module>v01-object-or-null</module>
         <module>v02-object-or-exception</module>
+        <module>v03-object-with-success-info</module>
     </modules>
 
     <properties>
