@@ -1,4 +1,4 @@
-package dev.futa.tutorial.pesel.v01;
+package dev.futa.tutorial.pesel.v02;
 
 import com.google.common.collect.ImmutableMap;
 import dev.futa.tutorial.pesel.Gender;
@@ -12,6 +12,7 @@ import static dev.futa.tutorial.pesel.Gender.FEMALE;
 import static dev.futa.tutorial.pesel.Gender.MALE;
 import static java.lang.Character.getNumericValue;
 import static java.lang.Integer.parseInt;
+import static java.util.Objects.isNull;
 
 public class PeselService {
 
@@ -28,33 +29,39 @@ public class PeselService {
           80, 1800);
 
   /**
-   * Method decodes date of birth and gender from PESEL number.
+   * Method decodes date of birth and gender from PESEL number. Will return <code>
+   * PeselDecodingException</code> in case of invalid PESEL number.
    *
    * @param pesel PESEL number to decode data from
-   * @return object that contains decoded birth date and PESEL itself. Will return <code>null</code> if PESEL
-   *     do not meet validation rules or coded date is not valid date.
+   * @return object contains decoded data and PESEL itself
+   * @throws PeselDecodingException if given PESEL can not be decoded
    */
   public PeselInfo decodePesel(final String pesel) {
 
-    if (pesel == null) {
-      return null;
+    if (isNull(pesel)) {
+      throw new IllegalArgumentException("PESEL number can not be null");
     }
 
-    if (isPatternValid(pesel) && isChecksumValid(pesel)) {
+    if (isNotValidPattern(pesel)) {
+      throw new PeselDecodingException("Invalid PESEL pattern for " + pesel);
+    }
+
+    if (isChecksumValid(pesel)) {
       final LocalDate birthDate = extractBirthDate(pesel);
       final Gender gender = extractGender(pesel);
 
-      if (birthDate != null) {
-        return new PeselInfo(pesel, birthDate, gender);
-      }
+      return new PeselInfo(pesel, birthDate, gender);
     }
 
-    return null;
+    throw new PeselDecodingException("Can not decode information from PESEL " + pesel);
   }
 
   private boolean isChecksumValid(String pesel) {
     final int[] digitsOfPesel = peselToDigitsArray(pesel);
-    return calculateWeightedSum(digitsOfPesel) % 10 == 0;
+    if (calculateWeightedSum(digitsOfPesel) % 10 != 0) {
+      throw new PeselDecodingException("Checksum is not valid for PESEL " + pesel);
+    }
+    return true;
   }
 
   private int[] peselToDigitsArray(String pesel) {
@@ -75,8 +82,8 @@ public class PeselService {
     return sum;
   }
 
-  private boolean isPatternValid(String pesel) {
-    return PESEL_PATTERN.matcher(pesel).matches();
+  private boolean isNotValidPattern(String pesel) {
+    return !PESEL_PATTERN.matcher(pesel).matches();
   }
 
   private LocalDate extractBirthDate(String pesel) {
@@ -90,7 +97,7 @@ public class PeselService {
     try {
       return LocalDate.of(year, month, dayOfMonth);
     } catch (DateTimeException e) {
-      return null;
+      throw new PeselDecodingException("Encoded date seems not to be valid for PESEL " + pesel);
     }
   }
 

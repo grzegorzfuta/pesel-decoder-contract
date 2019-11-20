@@ -1,5 +1,6 @@
 package dev.futa.tutorial.pesel.v01;
 
+import com.google.common.collect.ImmutableSet;
 import dev.futa.tutorial.pesel.Gender;
 import dev.futa.tutorial.pesel.PeselDataSetSupplier;
 import org.junit.jupiter.api.BeforeAll;
@@ -63,22 +64,12 @@ class PeselServiceTest {
   }
 
   static Stream<Arguments> invalidPesels() {
-    return Stream.of(
-        Arguments.of(""),
-        Arguments.of("12345"),
-        Arguments.of("012345678901234"),
-        Arguments.of("abcd-abcd-1"),
-        Arguments.of("20223003433"),
-        Arguments.of("19222903431"),
-        Arguments.of("75123203434"),
-        Arguments.of("25273203437"),
-        Arguments.of("25370203433"),
-        Arguments.of("13443101230"),
-        Arguments.of("14551204561"),
-        Arguments.of("15613201234"),
-        Arguments.of("15771001231"),
-        Arguments.of("15874201235"),
-        Arguments.of("15951001235"),
-        Arguments.of("85023003436"));
+
+    return ImmutableSet.builder()
+        .addAll(peselDataSetSupplier.getInvalidLengthPeselSet())
+        .addAll(peselDataSetSupplier.getInvalidCharactersPeselSet())
+        .addAll(peselDataSetSupplier.getInvalidChecksumPeselSet())
+        .addAll(peselDataSetSupplier.getInvalidEncodedDatePeselSet()).build().stream()
+        .map(Arguments::of);
   }
 }
