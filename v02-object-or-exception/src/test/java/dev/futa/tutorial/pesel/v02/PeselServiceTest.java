@@ -18,12 +18,35 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class PeselServiceTest {
 
-  private PeselService peselService;
   private static PeselDataSetSupplier peselDataSetSupplier;
+  private PeselService peselService;
 
   @BeforeAll
   static void beforeAll() {
     peselDataSetSupplier = new PeselDataSetSupplier();
+  }
+
+  static Stream<Arguments> validPesels() {
+    return peselDataSetSupplier.getValidPeselSet().stream()
+        .map(x -> Arguments.of(x.getPesel(), x.getBirthDate(), x.getGender()));
+  }
+
+  static Stream<Arguments> invalidPatternSet() {
+    return ImmutableSet.builder().addAll(peselDataSetSupplier.getInvalidLengthPeselSet())
+        .addAll(peselDataSetSupplier.getInvalidCharactersPeselSet()).build().stream()
+        .map(Arguments::of);
+  }
+
+  static Stream<Arguments> invalidChecksumSet() {
+    return ImmutableSet.builder().addAll(peselDataSetSupplier.getInvalidChecksumPeselSet()).build()
+        .stream()
+        .map(Arguments::of);
+  }
+
+  static Stream<Arguments> invalidEncodedDateSet() {
+    return ImmutableSet.builder().addAll(peselDataSetSupplier.getInvalidEncodedDatePeselSet())
+        .build().stream()
+        .map(Arguments::of);
   }
 
   @BeforeEach
@@ -86,28 +109,5 @@ class PeselServiceTest {
     // then
     final String expectedMessage = "Encoded date seems not to be valid for PESEL " + givenPesel;
     assertEquals(expectedMessage, peselDecodingException.getMessage());
-  }
-
-  static Stream<Arguments> validPesels() {
-    return peselDataSetSupplier.getValidPeselSet().stream()
-        .map(x -> Arguments.of(x.getPesel(), x.getBirthDate(), x.getGender()));
-  }
-
-  static Stream<Arguments> invalidPatternSet() {
-    return ImmutableSet.builder().addAll(peselDataSetSupplier.getInvalidLengthPeselSet())
-        .addAll(peselDataSetSupplier.getInvalidCharactersPeselSet()).build().stream()
-        .map(Arguments::of);
-  }
-
-  static Stream<Arguments> invalidChecksumSet() {
-    return ImmutableSet.builder().addAll(peselDataSetSupplier.getInvalidChecksumPeselSet()).build()
-        .stream()
-        .map(Arguments::of);
-  }
-
-  static Stream<Arguments> invalidEncodedDateSet() {
-    return ImmutableSet.builder().addAll(peselDataSetSupplier.getInvalidEncodedDatePeselSet())
-        .build().stream()
-        .map(Arguments::of);
   }
 }

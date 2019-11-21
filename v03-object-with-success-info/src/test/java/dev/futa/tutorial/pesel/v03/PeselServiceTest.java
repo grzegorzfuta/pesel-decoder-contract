@@ -1,4 +1,4 @@
-package dev.futa.tutorial.pesel.v01;
+package dev.futa.tutorial.pesel.v03;
 
 import com.google.common.collect.ImmutableSet;
 import dev.futa.tutorial.pesel.Gender;
@@ -13,8 +13,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.time.LocalDate;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 class PeselServiceTest {
 
@@ -32,7 +31,6 @@ class PeselServiceTest {
   }
 
   static Stream<Arguments> invalidPesels() {
-
     return ImmutableSet.builder().addAll(peselDataSetSupplier.getInvalidLengthPeselSet())
         .addAll(peselDataSetSupplier.getInvalidCharactersPeselSet())
         .addAll(peselDataSetSupplier.getInvalidChecksumPeselSet())
@@ -55,6 +53,7 @@ class PeselServiceTest {
     final PeselInfo peselInfo = peselService.decodePesel(givenPesel);
 
     // then
+    assertTrue(peselInfo.isValid(), "Success status should be true");
     assertEquals(givenPesel, peselInfo.getPesel());
     assertEquals(expectedGender, peselInfo.getGender());
     assertEquals(expectedBirthDate, peselInfo.getBirthDate());
@@ -62,13 +61,19 @@ class PeselServiceTest {
 
   @ParameterizedTest
   @MethodSource("invalidPesels")
-  @DisplayName("Should return null if invalid PESEL was passed")
-  void shouldReturnNullOnInvalidPeselNumber(String givenPesel) {
+  @DisplayName("Should throw exception for invalid characters or length")
+  void shouldThrowExceptionForInvalidLengthOrCharacters(String givenPesel) {
 
     // when
     final PeselInfo peselInfo = peselService.decodePesel(givenPesel);
 
     // then
-    assertNull(peselInfo, "PeselInfo object should be null for " + givenPesel);
+    assertFalse(peselInfo.isValid(), "Success status should be false");
+    assertEquals(
+        givenPesel,
+        peselInfo.getPesel(),
+        "PESEL returned in PeselInfo should be equal to delivered to method");
+    assertNull(peselInfo.getGender(), "Value of gender should be null");
+    assertNull(peselInfo.getBirthDate(), "Value of birth date should be null");
   }
 }
