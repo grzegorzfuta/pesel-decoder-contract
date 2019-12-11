@@ -1,4 +1,4 @@
-package dev.futa.tutorial.pesel.v03;
+package dev.futa.tutorial.pesel.v04;
 
 import com.google.common.collect.ImmutableSet;
 import dev.futa.tutorial.pesel.Gender;
@@ -15,8 +15,7 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class PeselServiceTest {
-
+public class PeselServiceTest {
   private static PeselDataSetSupplier peselDataSetSupplier;
   private PeselService peselService;
 
@@ -54,6 +53,10 @@ class PeselServiceTest {
 
     // then
     assertTrue(peselInfo.isValid(), "Success status should be true");
+    assertEquals(
+        "dev.futa.tutorial.pesel.v04.CorrectPeselInfo",
+        peselInfo.getClass().getName(),
+        "Returned object has to be instance of dev.futa.tutorial.pesel.v04.CorrectPeselInfo");
     assertEquals(givenPesel, peselInfo.getPesel());
     assertEquals(expectedGender, peselInfo.getGender());
     assertEquals(expectedBirthDate, peselInfo.getBirthDate());
@@ -61,7 +64,7 @@ class PeselServiceTest {
 
   @ParameterizedTest
   @MethodSource("invalidPesels")
-  @DisplayName("Should return PeselInfo marked as invalid")
+  @DisplayName("Should return NullPeselInfo object for invalid PESEL")
   void shouldThrowExceptionForInvalidLengthOrCharacters(String givenPesel) {
 
     // when
@@ -69,6 +72,10 @@ class PeselServiceTest {
 
     // then
     assertFalse(peselInfo.isValid(), "Success status should be false");
+    assertEquals(
+        "dev.futa.tutorial.pesel.v04.NullPeselInfo",
+        peselInfo.getClass().getName(),
+        "Returned object has to be instance of dev.futa.tutorial.pesel.v04.NullPeselInfo");
     assertEquals(
         givenPesel,
         peselInfo.getPesel(),
