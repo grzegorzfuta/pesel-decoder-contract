@@ -22,6 +22,7 @@
         <mockito.version>1.10.19</mockito.version>
         <guava.version>28.1-jre</guava.version>
         <javadoc.plugin.version>3.1.1</javadoc.plugin.version>
+        <vavr.version>0.10.2</vavr.version>
     </properties>
 
     <dependencyManagement>
@@ -35,6 +36,11 @@
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>${guava.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.vavr</groupId>
+                <artifactId>vavr</artifactId>
+                <version>${vavr.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

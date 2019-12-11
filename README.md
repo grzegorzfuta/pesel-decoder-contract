@@ -16,7 +16,7 @@ PESEL number information...
 
 * [ResultObject or `null` value](v01-object-or-null/README.md) the simplest possible approach that do not assume possibility of errors
 * [ResultObject or throw exception](v02-object-or-exception/README.md)
-* [ResultObject with success information](v03-object-with-succes-info/README.md)
-* [ResultObject with NullObject](v04-xxx/README.md)
+* [ResultObject with success information](v03-object-with-success-info/README.md)
+* [ResultObject as NullObject](v04-null-object-pattern/README.md)
 * [Optional<ResultObject>](v05-xxx/README.md)
 * [Either<ResultObject, >](v06-xxx/README.md)

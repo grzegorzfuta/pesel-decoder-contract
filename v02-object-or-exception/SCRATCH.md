@@ -10,3 +10,4 @@
 * metodę isChecsumValid napisać błędnie - zwracjącą boolean + wyrzucjącą wyjątek
 * wyjątki rzucane w różnych miejscach moga powodować problemy
 * wyrzucenie wyjątku przez isChecksumValid(pesel) spowoduje, że linia ``throw new PeselDecodingException("Can not decode information from PESEL " + pesel);`` nigdy nie jest wywoływna
+* programujący funkcyjnie nienawidza tego(!)
