@@ -8,11 +8,14 @@
     <artifactId>pesel-decoder</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+
     <modules>
         <module>test-data</module>
         <module>v01-object-or-null</module>
         <module>v02-object-or-exception</module>
         <module>v03-object-with-success-info</module>
+        <module>v04-null-object-pattern</module>
+        <module>v05-optional</module>
     </modules>
 
     <properties>
@@ -41,6 +44,11 @@
                 <groupId>io.vavr</groupId>
                 <artifactId>vavr</artifactId>
                 <version>${vavr.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>dev.futa.tutorial.pesel-decoder</groupId>
+                <artifactId>test-data</artifactId>
+                <version>${project.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

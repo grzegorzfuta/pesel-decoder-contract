@@ -1,4 +1,4 @@
-package dev.futa.tutorial.pesel.v04;
+package dev.futa.tutorial.pesel.v05;
 
 import com.google.common.collect.ImmutableSet;
 import dev.futa.tutorial.pesel.Gender;
@@ -11,9 +11,13 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.time.LocalDate;
+import java.util.Optional;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static dev.futa.tutorial.pesel.v05.AssertOptional.assertEmpty;
+import static dev.futa.tutorial.pesel.v05.AssertOptional.assertPresent;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PeselServiceTest {
   private static PeselDataSetSupplier peselDataSetSupplier;
@@ -49,17 +53,17 @@ public class PeselServiceTest {
       String givenPesel, LocalDate expectedBirthDate, Gender expectedGender) {
 
     // when
-    final PeselInfo peselInfo = peselService.decodePesel(givenPesel);
+    final Optional<PeselInfo> peselInfo = peselService.decodePesel(givenPesel);
 
     // then
-    assertTrue(peselInfo.isValid(), "Success status should be true");
-    assertEquals(
-        CorrectPeselInfo.class.getName(),
-        peselInfo.getClass().getName(),
-        "Returned object has to be instance of " + CorrectPeselInfo.class.getName());
-    assertEquals(givenPesel, peselInfo.getPesel());
-    assertEquals(expectedGender, peselInfo.getGender());
-    assertEquals(expectedBirthDate, peselInfo.getBirthDate());
+    assertPresent(peselInfo, "PeselInfo from " + givenPesel);
+
+    peselInfo.ifPresent(
+        flatPeselInfo ->
+            assertAll(
+                () -> assertEquals(givenPesel, flatPeselInfo.getPesel()),
+                () -> assertEquals(expectedGender, flatPeselInfo.getGender()),
+                () -> assertEquals(expectedBirthDate, flatPeselInfo.getBirthDate())));
   }
 
   @ParameterizedTest
@@ -68,19 +72,9 @@ public class PeselServiceTest {
   void shouldThrowExceptionForInvalidLengthOrCharacters(String givenPesel) {
 
     // when
-    final PeselInfo peselInfo = peselService.decodePesel(givenPesel);
+    final Optional<PeselInfo> peselInfo = peselService.decodePesel(givenPesel);
 
     // then
-    assertFalse(peselInfo.isValid(), "Success status should be false");
-    assertEquals(
-        NullPeselInfo.class.getName(),
-        peselInfo.getClass().getName(),
-        "Returned object has to be instance of " + NullPeselInfo.class.getName());
-    assertEquals(
-        givenPesel,
-        peselInfo.getPesel(),
-        "PESEL returned in PeselInfo should be equal to delivered to method");
-    assertNull(peselInfo.getGender(), "Value of gender should be null");
-    assertNull(peselInfo.getBirthDate(), "Value of birth date should be null");
+    assertEmpty(peselInfo, "PeselInfo from " + givenPesel);
   }
 }
