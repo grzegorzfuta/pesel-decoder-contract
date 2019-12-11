@@ -9,13 +9,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>v04-null-object-pattern</artifactId>
-
+    <artifactId>v05-optional</artifactId>
     <dependencies>
-        <dependency>
-            <groupId>dev.futa.tutorial.pesel-decoder</groupId>
-            <artifactId>test-data</artifactId>
-        </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
@@ -25,6 +20,9 @@
             <artifactId>junit-jupiter</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>dev.futa.tutorial.pesel-decoder</groupId>
+            <artifactId>test-data</artifactId>
+        </dependency>
     </dependencies>
-
 </project>
