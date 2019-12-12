@@ -16,6 +16,7 @@
         <module>v03-object-with-success-info</module>
         <module>v04-null-object-pattern</module>
         <module>v05-optional</module>
+        <module>v06-either</module>
     </modules>
 
     <properties>
