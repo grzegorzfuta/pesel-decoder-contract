@@ -20,6 +20,7 @@
     </modules>
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>5.5.2</junit.version>
         <compiler.plugin.version>3.8.1</compiler.plugin.version>
         <surfire.plugin.version>3.0.0-M3</surfire.plugin.version>
@@ -75,7 +76,7 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>${javadoc.plugin.version}</version>
                 <configuration>
-                    <show>private</show>
+<!--                    <show>private</show>-->
                     <nohelp>true</nohelp>
                 </configuration>
             </plugin>

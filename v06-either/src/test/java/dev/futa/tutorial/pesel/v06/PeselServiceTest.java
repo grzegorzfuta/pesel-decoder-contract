@@ -90,7 +90,7 @@ public class PeselServiceTest {
   @ParameterizedTest
   @MethodSource("invalidPesels")
   @DisplayName("Should return NullPeselInfo object for invalid PESEL")
-  void shouldThrowExceptionForInvalidLengthOrCharacters(
+  void shouldReturnLeftInvalidPesel(
       final String givenPesel, final FailureReason expectedReason) {
 
     // when
@@ -99,6 +99,6 @@ public class PeselServiceTest {
     // then
     assertEmpty(peselInfos, "PeselInfo from " + givenPesel);
 
-    assertEquals(expectedReason, peselInfos.getLeft());
+    assertEquals(expectedReason, peselInfos.getLeft(), "for PESEL: " + givenPesel);
   }
 }
