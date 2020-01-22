@@ -29,8 +29,8 @@ public class PeselService {
           80, 1800);
 
   /**
-   * Method decodes date of birth and gender from PESEL number. Will return <code>
-   * PeselDecodingException</code> in case of invalid PESEL number.
+   * Method decodes date of birth and gender from PESEL number. Will return <code>PeselDecodingException</code>
+   * in case of invalid PESEL number.
    *
    * @param pesel PESEL number to decode data from
    * @return object contains decoded data and PESEL itself

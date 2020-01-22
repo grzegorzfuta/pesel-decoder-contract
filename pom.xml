@@ -17,6 +17,7 @@
         <module>v04-null-object-pattern</module>
         <module>v05-optional</module>
         <module>v06-either</module>
+        <module>pesel-generator</module>
     </modules>
 
     <properties>
@@ -28,6 +29,7 @@
         <guava.version>28.1-jre</guava.version>
         <javadoc.plugin.version>3.1.1</javadoc.plugin.version>
         <vavr.version>0.10.2</vavr.version>
+        <kotlin.version>1.3.61</kotlin.version>
     </properties>
 
     <dependencyManagement>
@@ -51,6 +53,11 @@
                 <groupId>dev.futa.tutorial.pesel-decoder</groupId>
                 <artifactId>test-data</artifactId>
                 <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-stdlib</artifactId>
+                <version>${kotlin.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
