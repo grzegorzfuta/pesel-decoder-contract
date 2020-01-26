@@ -5,15 +5,17 @@ import java.time.LocalDate
 import java.util.*
 import kotlin.random.Random
 
-fun main() {
+fun main(args: Array<String>) {
 
     val startDate = LocalDate.of(1851, 12, 21)
     val endDate = LocalDate.of(2021, 1, 1)
-    val peselsPerDay = 1234
+    val peselsPerDay = 44
 
     val random = Random(Date().time)
 
-    val application = GeneratorApplication(PeselGenerator(random), File("d:\\logs\\pesels.txt"))
+//    val outputFileName = args
+
+    val application = GeneratorApplication(PeselGenerator(random), File("pesels.txt"))
     application.run(startDate, endDate, peselsPerDay)
 
 }
