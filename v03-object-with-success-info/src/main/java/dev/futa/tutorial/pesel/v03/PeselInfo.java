@@ -33,19 +33,19 @@ public class PeselInfo {
     return failedDecodingPeselInfo;
   }
 
-  String getPesel() {
+  public String getPesel() {
     return pesel;
   }
 
-  LocalDate getBirthDate() {
+  public LocalDate getBirthDate() {
     return birthDate;
   }
 
-  Gender getGender() {
+  public Gender getGender() {
     return gender;
   }
 
-  boolean isValid() {
+  public boolean isValid() {
     return valid;
   }
 }

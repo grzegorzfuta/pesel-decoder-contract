@@ -15,15 +15,15 @@ public class PeselInfo {
     this.gender = gender;
   }
 
-  String getPesel() {
+  public String getPesel() {
     return pesel;
   }
 
-  LocalDate getBirthDate() {
+  public LocalDate getBirthDate() {
     return birthDate;
   }
 
-  Gender getGender() {
+  public Gender getGender() {
     return gender;
   }
 }

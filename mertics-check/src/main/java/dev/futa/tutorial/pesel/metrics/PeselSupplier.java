@@ -20,7 +20,7 @@ class PeselSupplier {
     this.filename = filename;
   }
 
-  PeselSupplier createSupplier(String filename) {
+  static PeselSupplier createSupplier(String filename) {
     final PeselSupplier peselSupplier = new PeselSupplier(filename);
     peselSupplier.loadPesels();
     return peselSupplier;

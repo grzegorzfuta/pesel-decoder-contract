@@ -1,9 +1,10 @@
 package dev.futa.tutorial.pesel.metrics;
 
 import dev.futa.tutorial.pesel.v02.PeselDecodingException;
-import dev.futa.tutorial.pesel.v02.PeselInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.function.Consumer;
 
 final class MetricsRunner {
 
@@ -11,9 +12,11 @@ final class MetricsRunner {
 
   private final PeselSupplier peselSupplier;
   private final Runtime runtime = Runtime.getRuntime();
+  private final Consumer<String> decodingConsumer;
 
-  MetricsRunner(PeselSupplier peselSupplier) {
+  MetricsRunner(PeselSupplier peselSupplier, Consumer<String> decodingConsumer) {
     this.peselSupplier = peselSupplier;
+    this.decodingConsumer = decodingConsumer;
   }
 
   void runMetricsTest() {
@@ -27,7 +30,7 @@ final class MetricsRunner {
       long t0 = System.currentTimeMillis();
       for (int i = 0; i < peselSupplier.getTotalCount(); i++) {
         try {
-          final PeselInfo peselInfo = peselService.decodePesel(peselSupplier.getNextPesel(r, i));
+          decodingConsumer.accept(peselSupplier.getNextPesel(r, i));
         } catch (PeselDecodingException decodingException) {
           logger.info(decodingException.getMessage());
         }

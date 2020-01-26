@@ -1,11 +1,11 @@
 package dev.futa.tutorial.pesel.metrics;
 
-import dev.futa.tutorial.pesel.v02.PeselService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.function.Consumer;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
@@ -13,21 +13,14 @@ public class ApplicationLauncher {
 
   public static Logger logger = LoggerFactory.getLogger(ApplicationLauncher.class);
 
-  private FileReader fileReader;
-  private PeselService peselService;
-
-  ApplicationLauncher(FileReader fileReader, PeselService peselService) {
-    this.fileReader = fileReader;
-    this.peselService = peselService;
-  }
-
   public static void main(String[] args) {
 
     final Arguments arguments = extractArguments(args);
+    final PeselSupplier peselSupplier = PeselSupplier.createSupplier(arguments.getFileName());
 
-    final FileReader fileReader = new FileReader(arguments.getFileName());
+    final MetricsRunner metricsRunner =
+        new MetricsRunner(peselSupplier, createConsumer(arguments.getDecoderVersion()));
 
-    final MetricsRunner metricsRunner = new MetricsRunner(new PeselSupplier(fileReader));
     metricsRunner.runMetricsTest();
   }
 
@@ -43,5 +36,16 @@ public class ApplicationLauncher {
         Files.isReadable(Paths.get(peselsFilename)), "Can not read from file " + peselsFilename);
 
     return new Arguments(peselsFilename, decodeMethod);
+  }
+
+  private static Consumer<String> createConsumer(String version) {
+    switch (version.toLowerCase()) {
+      case "v01":
+        return new ObjectOrNullConsumer(new dev.futa.tutorial.pesel.v01.PeselService());
+      case "v02":
+        return new ObjectOrExceptionConsumer(new dev.futa.tutorial.pesel.v02.PeselService());
+      default:
+        throw new IllegalStateException("Unknown ");
+    }
   }
 }

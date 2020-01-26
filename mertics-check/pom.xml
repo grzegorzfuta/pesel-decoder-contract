@@ -14,9 +14,35 @@
     <dependencies>
         <dependency>
             <groupId>dev.futa.tutorial.pesel-decoder</groupId>
+            <artifactId>v01-object-or-null</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>dev.futa.tutorial.pesel-decoder</groupId>
             <artifactId>v02-object-or-exception</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>dev.futa.tutorial.pesel-decoder</groupId>
+            <artifactId>v03-object-with-succes-info</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>dev.futa.tutorial.pesel-decoder</groupId>
+            <artifactId>v04-null-object-pattern</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>dev.futa.tutorial.pesel-decoder</groupId>
+            <artifactId>v05-optional</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>dev.futa.tutorial.pesel-decoder</groupId>
+            <artifactId>v06-either</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
