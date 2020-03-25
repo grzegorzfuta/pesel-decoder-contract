@@ -50,12 +50,6 @@ public class PeselService {
 
     checkArgument(nonNull(pesel), "PESEL number can not be null");
 
-    getValidLengthPesel(pesel)
-            .flatMap(this::getValidCharactersPesel)
-            .flatMap(this::getValidChecksumPesel)
-            .map(this::asdasdasdasd);
-
-
     return getValidLengthPesel(pesel)
         .flatMap(this::getValidCharactersPesel)
         .flatMap(this::getValidChecksumPesel)
@@ -133,10 +127,4 @@ public class PeselService {
     return YEAR_CODES.get(yearCode);
   }
 
-  private Either<FailureReason, PeselInfo> asdasdasdasd(String validPesel) {
-    return extractBirthDate(validPesel)
-            .toEither()
-            .map(birthDate -> new PeselInfo(validPesel, birthDate, extractGender(validPesel)))
-            .mapLeft(exception -> FailureReason.INVALID_DATE);
-  }
 }

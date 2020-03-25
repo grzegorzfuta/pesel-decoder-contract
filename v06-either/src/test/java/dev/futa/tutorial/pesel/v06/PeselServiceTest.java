@@ -1,6 +1,5 @@
 package dev.futa.tutorial.pesel.v06;
 
-import com.google.common.collect.Sets;
 import dev.futa.tutorial.pesel.Gender;
 import dev.futa.tutorial.pesel.PeselDataSetSupplier;
 import io.vavr.control.Either;
@@ -13,7 +12,6 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -38,11 +36,10 @@ public class PeselServiceTest {
 
   static Set<Arguments> invalidPesels() {
 
-    HashSet<Arguments> arguments =
-        Sets.newHashSet(
-            peselDataSetSupplier.getInvalidLengthPeselSet().stream()
-                .map(pesel -> Arguments.of(pesel, FailureReason.INVALID_LENGTH))
-                .collect(Collectors.toList()));
+    Set<Arguments> arguments =
+        peselDataSetSupplier.getInvalidLengthPeselSet().stream()
+            .map(pesel -> Arguments.of(pesel, FailureReason.INVALID_LENGTH))
+            .collect(Collectors.toSet());
 
     arguments.addAll(
         peselDataSetSupplier.getInvalidCharactersPeselSet().stream()
@@ -90,8 +87,7 @@ public class PeselServiceTest {
   @ParameterizedTest
   @MethodSource("invalidPesels")
   @DisplayName("Should return NullPeselInfo object for invalid PESEL")
-  void shouldReturnLeftInvalidPesel(
-      final String givenPesel, final FailureReason expectedReason) {
+  void shouldReturnLeftInvalidPesel(final String givenPesel, final FailureReason expectedReason) {
 
     // when
     final Either<FailureReason, PeselInfo> peselInfos = peselService.decodePesel(givenPesel);
