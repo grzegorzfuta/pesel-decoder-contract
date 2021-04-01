@@ -25,7 +25,7 @@
         <compiler.plugin.version>3.8.1</compiler.plugin.version>
         <surfire.plugin.version>3.0.0-M3</surfire.plugin.version>
         <mockito.version>1.10.19</mockito.version>
-        <guava.version>28.1-jre</guava.version>
+        <guava.version>29.0-jre</guava.version>
         <javadoc.plugin.version>3.1.1</javadoc.plugin.version>
         <vavr.version>0.10.2</vavr.version>
     </properties>
